@@ -9,6 +9,7 @@ import {HomeScreen} from "./HomeScreen";
 import {DetailsScreen} from "./DetailScreen";
 import {ExploreScreen} from "./ExploreScreen";
 import {ProfileScreen} from "./ProfileScreen";
+import IconAquarium from "../components/IconAquarium";
 
 
 const HomeStack = createStackNavigator()
@@ -29,6 +30,7 @@ export const MainTabScreen = () => (
                 tabBarColor: '#009387',
                 tabBarIcon: ({ color }) => (
                     <Icon name="ios-home" color={color} size={26} />
+                    /* <IconAquarium/>*/
                 ),
             }}
         />

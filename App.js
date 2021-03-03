@@ -47,6 +47,7 @@ const App = () => {
             ...NavigationDefaultTheme.colors,
             ...PaperDefaultTheme.colors,
             background: '#ffffff',
+            background2: '#E9EAEC',
             text: '#333333'
         }
     }
@@ -57,7 +58,8 @@ const App = () => {
         colors: {
             ...NavigationDarkTheme.colors,
             ...PaperDarkTheme.colors,
-            background: '#333333',
+            background: '#000',
+            background2: '#333333',
             text: '#ffffff'
         }
     }
@@ -107,10 +109,11 @@ const App = () => {
 
             try {
                 await AsyncStorage.setItem('userToken', userToken);
+              //  await AsyncStorage.setItem('f', 123);
             } catch(e) {
                 console.log(e);
             }
-            console.log('user token: ', userToken);
+            //console.log('user token: ', userToken);
             dispatch({ type: 'LOGIN', id: userName, token: userToken });
         },
         signOut: async() => {
@@ -137,12 +140,16 @@ const App = () => {
             // setIsLoading(false);
             let userToken;
             userToken = null;
+           // let f;
+           // f = null;
             try {
                 userToken = await AsyncStorage.getItem('userToken');
+               // f = await AsyncStorage.getItem('f');
             } catch(e) {
                 console.log(e);
             }
-            // console.log('user token: ', userToken);
+           // console.log('f: ', f);
+            console.log('user token: ', userToken);
             dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
         }, 1000);
     }, []);
@@ -158,7 +165,7 @@ const App = () => {
         <PaperProvider theme={theme}>
             <AuthContext.Provider value={authContext}>
                 <NavigationContainer theme={theme}>
-                    { loginState.userToken === null ? (
+                    { loginState.userToken !== null ? (
                             <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
                                 <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
                                 <Drawer.Screen name="SupportScreen" component={SupportScreen} />

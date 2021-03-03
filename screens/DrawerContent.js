@@ -4,7 +4,6 @@ import { useTheme, Avatar, Title, Caption, Paragraph, Drawer, Text, TouchableRip
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from  'react-native-vector-icons/Ionicons'
-
 import {AuthContext} from "../components/context";
 
 export function DrawerContent(props) {
@@ -65,7 +64,9 @@ export function DrawerContent(props) {
 
                        </Drawer.Section>
                        <Drawer.Section title="Preferences">
-                           <TouchableRipple onPress={() => {toggleTheme()}}>
+                           <TouchableRipple onPress={() => {
+                               toggleTheme();
+                           }}>
                                <View style={styles.preference}>
                                    <Text>Dark Theme</Text>
                                    <View pointerEvents="none">
