@@ -81,6 +81,10 @@ export function DrawerContent(props) {
            </DrawerContentScrollView>
 
 
+
+
+
+
             <Drawer.Section style={styles.bottomDrawerSection}>
                 <DrawerItem icon={({color, size}) => (
                     <Icon name="exit-to-app" color={color} size={size}/>

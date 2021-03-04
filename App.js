@@ -14,7 +14,6 @@ import {
 } from 'react-native-paper';
 
 import { DrawerContent } from './screens/DrawerContent';
-
 import{ MainTabScreen }from './screens/MainTabScreen';
 import{ SupportScreen }from './screens/SupportScreen';
 import{ SettingsScreen }from './screens/SettingsScreen';
@@ -48,6 +47,7 @@ const App = () => {
             ...PaperDefaultTheme.colors,
             background: '#ffffff',
             background2: '#E9EAEC',
+            backgroundOpacity: 'rgba(233,234,236, 0.9)',
             text: '#333333'
         }
     }
@@ -60,6 +60,7 @@ const App = () => {
             ...PaperDarkTheme.colors,
             background: '#000',
             background2: '#333333',
+            backgroundOpacity: 'rgba(51,51,51, 0.95)',
             text: '#ffffff'
         }
     }
@@ -170,7 +171,7 @@ const App = () => {
                                 <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
                                 <Drawer.Screen name="SupportScreen" component={SupportScreen} />
                                 <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
-                                <Drawer.Screen name="BookmarkScreen" component={BookMarksScreen} />
+                                <Drawer.Screen name="BookMarksScreen" component={BookMarksScreen} />
                             </Drawer.Navigator>
                         )
                         :
