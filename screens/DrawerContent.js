@@ -5,6 +5,7 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer"
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from  'react-native-vector-icons/Ionicons'
 import {AuthContext} from "../components/context";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export function DrawerContent(props) {
 
@@ -43,7 +44,8 @@ export function DrawerContent(props) {
 
                        <Drawer.Section style={styles.drawerSection}>
                            <DrawerItem icon={({color, size}) => (
-                               <Icon name="home-outline" color={color} size={size}/>
+                              /* <Icon name="home-outline" color={color} size={size}/>*/
+                               <MaterialCommunityIcons name="fishbowl-outline" color={color} size={size} />
                            )} label="Аквариум" onPress={() => {props.navigation.navigate('Home')}}/>
 
                            <DrawerItem icon={({color, size}) => (

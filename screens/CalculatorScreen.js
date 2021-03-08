@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 
-export const ExploreScreen = () => {
+export const CalculatorScreen = () => {
     return (
         <View style={styles.container}>
             <Text>ExploreScreen</Text>

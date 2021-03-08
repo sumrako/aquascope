@@ -18,6 +18,7 @@ import{ MainTabScreen }from './screens/MainTabScreen';
 import{ SupportScreen }from './screens/SupportScreen';
 import{ SettingsScreen }from './screens/SettingsScreen';
 import{ BookMarksScreen }from './screens/BookMarksScreen';
+import{ FishScreen }from './screens/FishScreen';
 
 import { AuthContext } from './components/context';
 
@@ -47,7 +48,7 @@ const App = () => {
             ...PaperDefaultTheme.colors,
             background: '#ffffff',
             background2: '#E9EAEC',
-            backgroundOpacity: 'rgba(233,234,236, 0.9)',
+            backgroundOpacity: 'rgba(0,73,67, 0.5)',
             text: '#333333'
         }
     }
@@ -60,7 +61,7 @@ const App = () => {
             ...PaperDarkTheme.colors,
             background: '#000',
             background2: '#333333',
-            backgroundOpacity: 'rgba(51,51,51, 0.95)',
+            backgroundOpacity: 'rgba(0,36,33, 0.5)',
             text: '#ffffff'
         }
     }
@@ -172,6 +173,7 @@ const App = () => {
                                 <Drawer.Screen name="SupportScreen" component={SupportScreen} />
                                 <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
                                 <Drawer.Screen name="BookMarksScreen" component={BookMarksScreen} />
+                                { /*  <Drawer.Screen name="FishScreen" component={FishScreen} />*/}
                             </Drawer.Navigator>
                         )
                         :

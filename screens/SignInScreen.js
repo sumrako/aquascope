@@ -174,7 +174,7 @@ export const SignInScreen = ({navigation}) => {
                     <TextInput
                         placeholder="Your Password"
                         placeholderTextColor="#666666"
-                        secureTextEntry={data.secureTextEntry ? true : false}
+                        secureTextEntry={data.secureTextEntry}
                         style={[styles.textInput, {
                             color: colors.text
                         }]}
