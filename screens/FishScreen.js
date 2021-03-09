@@ -168,21 +168,26 @@ export const FishScreen = () => {
 
                                             <View>
                                                 {
-                                                    item.name === '' ? null :
-                                                        <Paragraph style={[styles.paragraph, styles.caption, {color: colors.text}]}>{item.name}</Paragraph>
+                                                    item.name === '' || item.name === null ? null :
+                                                        <Paragraph style={[styles.paragraph, styles.caption,
+                                                            {color: colors.text}]}>{item.name}</Paragraph>
                                                 }
                                                 {
-                                                    item.title === '' ? null :
-                                                        <Caption
-                                                            style={[styles.caption, {color: theme.dark ? "rgba(255,255,255, 0.5)" : "rgba(0,0,0, 0.5)"}]}>{item.title}</Caption>
+                                                    item.title === '' || item.title === null ? null :
+                                                        <Caption style={[styles.caption, {color: theme.dark ?
+                                                                "rgba(255,255,255, 0.5)" : "rgba(0,0,0, 0.5)"}]}>
+                                                            {item.title}</Caption>
                                                 }
                                             </View>
 
                                         </View>
                                         {
-                                            item.name === '' ?
-                                                <Paragraph style={[styles.paragraph, styles.caption, {color: colors.text}]}>{" x1"}</Paragraph>:
-                                        <Paragraph style={[styles.paragraph, styles.caption, {color: colors.text}]}>{" x" + item.quantity}</Paragraph>
+                                            item.quantity === '' || item.quantity === null ?
+                                                <Paragraph style={[styles.paragraph, styles.caption,
+                                                    {color: colors.text}]}>{" x1"}</Paragraph>
+                                                :
+                                                <Paragraph style={[styles.paragraph, styles.caption,
+                                                    {color: colors.text}]}>{" x" + item.quantity}</Paragraph>
                                         }
                                         {/*  <View style={styles.circular}/>*/}
 
