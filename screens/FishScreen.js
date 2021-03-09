@@ -12,9 +12,9 @@ export const FishScreen = () => {
     const theme = useTheme();
 
 
-    const[name, setName] = useState()
-    const[title, setTitle] = useState()
-    const[quantity, setQuantity] = useState()
+    const[name, setName] = useState(null)
+    const[title, setTitle] = useState(null)
+    const[quantity, setQuantity] = useState(null)
 
     const[fishItems, setFishItems] = useState(
         Fish.map((NotificationItem, index) => ({
