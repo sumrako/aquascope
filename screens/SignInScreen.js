@@ -117,40 +117,17 @@ export const SignInScreen = ({navigation}) => {
             <View style={styles.header}>
                 <Text style={styles.text_header}>Welcome!</Text>
             </View>
-            <Animatable.View
-                animation="fadeInUpBig"
-                style={[styles.footer, {
-                    backgroundColor: colors.background
-                }]}
-            >
-                <Text style={[styles.text_footer, {
-                    color: colors.text
-                }]}>Username</Text>
+            <Animatable.View animation="fadeInUpBig" style={[styles.footer, {backgroundColor: colors.background}]}>
+                <Text style={[styles.text_footer, {color: colors.text}]}>Username</Text>
                 <View style={styles.action}>
-                    <FontAwesome
-                        name="user-o"
-                        color={colors.text}
-                        size={20}
-                    />
-                    <TextInput
-                        placeholder="Your Username"
-                        placeholderTextColor="#666666"
-                        style={[styles.textInput, {
-                            color: colors.text
-                        }]}
-                        autoCapitalize="none"
-                        onChangeText={(val) => textInputChange(val)}
+                    <FontAwesome name="user-o" color={colors.text} size={20}/>
+                    <TextInput placeholder="Your Username" placeholderTextColor="#666666" style={[styles.textInput, {
+                        color: colors.text}]} autoCapitalize="none" onChangeText={(val) => textInputChange(val)}
                         onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
                     />
                     {data.check_textInputChange ?
-                        <Animatable.View
-                            animation="bounceIn"
-                        >
-                            <Feather
-                                name="check-circle"
-                                color="green"
-                                size={20}
-                            />
+                        <Animatable.View animation="bounceIn">
+                            <Feather name="check-circle" color="green" size={20}/>
                         </Animatable.View>
                         : null}
                 </View>
@@ -160,42 +137,19 @@ export const SignInScreen = ({navigation}) => {
                     </Animatable.View>
                 }
 
-
-                <Text style={[styles.text_footer, {
-                    color: colors.text,
-                    marginTop: 35
-                }]}>Password</Text>
+                <Text style={[styles.text_footer, {color: colors.text, marginTop: 35}]}>Password</Text>
                 <View style={styles.action}>
-                    <Feather
-                        name="lock"
-                        color={colors.text}
-                        size={20}
-                    />
+                    <Feather name="lock" color={colors.text} size={20}/>
                     <TextInput
-                        placeholder="Your Password"
-                        placeholderTextColor="#666666"
-                        secureTextEntry={data.secureTextEntry}
-                        style={[styles.textInput, {
-                            color: colors.text
-                        }]}
-                        autoCapitalize="none"
+                        placeholder="Your Password" placeholderTextColor="#666666" secureTextEntry={data.secureTextEntry}
+                        style={[styles.textInput, {color: colors.text}]} autoCapitalize="none"
                         onChangeText={(val) => handlePasswordChange(val)}
                     />
-                    <TouchableOpacity
-                        onPress={updateSecureTextEntry}
-                    >
+                    <TouchableOpacity onPress={updateSecureTextEntry}>
                         {data.secureTextEntry ?
-                            <Feather
-                                name="eye-off"
-                                color="grey"
-                                size={20}
-                            />
+                            <Feather name="eye-off" color="grey" size={20}/>
                             :
-                            <Feather
-                                name="eye"
-                                color="grey"
-                                size={20}
-                            />
+                            <Feather name="eye" color="grey" size={20}/>
                         }
                     </TouchableOpacity>
                 </View>
@@ -205,7 +159,6 @@ export const SignInScreen = ({navigation}) => {
                     </Animatable.View>
                 }
 
-
                 <TouchableOpacity>
                     <Text style={{color: '#009387', marginTop:15}}>Forgot password?</Text>
                 </TouchableOpacity>
@@ -214,7 +167,6 @@ export const SignInScreen = ({navigation}) => {
                                       style={[styles.signIn,  {backgroundColor: '#009387'}]}>
                         <Text style={[ styles.textSign, {color: '#fff'}]}>Sign In</Text>
                     </TouchableOpacity>
-
                     <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')}
                                       style={[styles.signIn, { borderColor: '#009387', borderWidth: 1, marginTop: 15}]}>
                         <Text style={[ styles.textSign, {color: '#009387'}]}>Sign Up</Text>

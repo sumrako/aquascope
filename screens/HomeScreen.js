@@ -1,4 +1,4 @@
-import React, {useRef, createRef}  from 'react';
+import React, {useRef}  from 'react';
 import {Animated, View, Text, Button, StyleSheet, TouchableOpacity, Image, ScrollView} from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import SvgAquarium from "../components/svgAquarium";
@@ -7,9 +7,10 @@ import * as Animatable from "react-native-animatable";
 import {Caption, Paragraph, Title} from "react-native-paper";
 import {Dimensions} from 'react-native';
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { BlurView } from 'expo-blur'
-
-
+import AsyncStorage from "@react-native-community/async-storage";
+const useComponentWillMount = (func) => {
+    React.useMemo(func, [])
+}
 export const HomeScreen = ({navigation}) => {
     const screenWidth = Dimensions.get('screen').width;
     const screenHeight = Dimensions.get('screen').height;
@@ -23,6 +24,7 @@ export const HomeScreen = ({navigation}) => {
         start: 0,
         end: 100
     }
+
     const value = useRef(new Animated.Value(animate_state.start)).current
 
     const startAnimate = () => {
@@ -30,34 +32,28 @@ export const HomeScreen = ({navigation}) => {
             Animated.timing(value, { toValue: animate_state.end, useNativeDriver: false, duration: 500 }).start()
             : Animated.timing(value, { toValue: animate_state.start, useNativeDriver: false, duration: 500 }).start()
     }
+
     const inputRange = Object.values(animate_state)
     const height = value.interpolate({ inputRange, outputRange: ['20%', '0%'] })
-
-
-
 
     return (
         <View  style={styles.container}>
             <StatusBar style={ theme.dark ? "light" : "dark"}/>
-
-            <Image blurRadius={.7} style={{position: 'absolute', width: '100%', height: '100%'}}
+            <Image blurRadius={.7} style={{position: 'absolute', width: '100%', height: '100%', flex: 0}}
                    source={require('../components/fonHome5.jpg')}/>
+            <Animated.View  style={ {color: colors.text, textAlign: 'center', height}}/>
 
-            <Animated.View  style={ {color: colors.text, textAlign: 'center', height  }}/>
-
-            <SvgAquarium/>
-
+            {/* <View style={{alignItems: 'center', justifyContent: 'center', width: '100%', height: '60%'}}>*/}
+                <SvgAquarium/>
+            { /* </View>*/}
             <View style={{alignItems: "center"}}>
                 <TouchableOpacity onPress={() => navigation.navigate("FishScreen")}
                                   style={{ position: "absolute",  bottom: screenHeight/30 + 45, left: '85%'}}>
-                    <Text
-                        style={{color: '#fff', textAlign: 'center', fontSize: 20, width: 40, height: 40,
-                            borderRadius: 20, backgroundColor: colors.backgroundOpacity, lineHeight: 37}}
-                        >
+                    <Text style={{color: '#fff', textAlign: 'center', fontSize: 20, width: 40, height: 40,
+                            borderRadius: 20, backgroundColor: colors.backgroundOpacity, lineHeight: 37}}>
                         <FontAwesome5 name="fish" size={20}/></Text>
                 </TouchableOpacity>
             </View>
-
             <View style={{alignItems: "center"}}>
                 <TouchableOpacity onPress={() => {startAnimate(); setSwipe(!swipe)}}
                                   style={{ position: "absolute", bottom: screenHeight/30, left: '85%'}}>
@@ -66,21 +62,12 @@ export const HomeScreen = ({navigation}) => {
                         <FontAwesome5 name="info" size={20}/></Text>
                 </TouchableOpacity>
             </View>
-
-            {/*  <Text style={{ color: colors.text}}>Home Screen</Text>
-            <Button
-                title="Go to details screen"
-                onPress={() => navigation.navigate("Details")}
-            />*/}
-
             {swipe ? null :
-
                 <Animatable.View animation="fadeInUpBig" style={[styles.footer, {
                     backgroundColor: colors.backgroundOpacity   }]} >
                     <Text style={[styles.text_footer, {color: "white"/*colors.text*/, borderBottomColor: colors.text,
                         borderBottomWidth: 1, marginBottom: 10, paddingBottom: 10, textAlign: 'center'}]}
                           onPress={() => {startAnimate(); setSwipe(!swipe)}}  >Информация об аквариуме</Text>
-
                   <ScrollView>
                    <View style={styles.section}>
                         <Caption style={[styles.caption, {color: "rgba(255,255,255, 0.5)", width: 110, marginRight: 10}]}>Название</Caption>
@@ -100,7 +87,6 @@ export const HomeScreen = ({navigation}) => {
                     </View>
                   </ScrollView>
                 </Animatable.View>
-
             }
         </View>
 

@@ -15,5 +15,4 @@ export default Notifications = [
         title: 'Поменяй воду в аквариуме',
         details: ''
     },
-
 ];

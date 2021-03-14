@@ -18,7 +18,7 @@ export const SplashScreen = ({navigation}) => {
             <View style={styles.header}>
                 <Animatable.Image
                     animation="bounceIn" duration={1500}
-                    source={require('../assets/logo.png')}
+                    source={require('../assets/logoAqua.png')}
                     style={styles.logo}
                     resizeMode="stretch"
                 />
@@ -39,7 +39,7 @@ export const SplashScreen = ({navigation}) => {
 };
 
 const {height} = Dimensions.get("screen");
-const height_logo = height * 0.28;
+const height_logo = height * 0.4;
 
 const styles = StyleSheet.create({
     container: {

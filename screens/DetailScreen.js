@@ -85,14 +85,13 @@ export const DetailsScreen = () => {
                         justifyContent: 'space-between',}}>
 
 
-                        <View style={styles.itemLeft}>
+                        <View style={[styles.itemLeft, {flexDirection: 'row'}]}>
                             <View style={styles.square}>
-
                                 <MaterialCommunityIcons name="bell-ring-outline" size={26} color={colors.text}/>
                             </View>
                             <Text style={[styles.itemText, {color: colors.text}]}>{data.item.title}</Text>
                         </View>
-                        <View style={styles.circular}/>
+                        <View /*style={styles.circular}*//>
 
                     </View>
                 </TouchableOpacity>
@@ -267,7 +266,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     itemText: {
-        maxWidth: '90%'
+        maxWidth: '80%'
     },
     circular: {
         width: 12,

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect, useMemo} from 'react';
 import { View, Text, StyleSheet, Keyboard, Modal, ScrollView, Alert, Platform, KeyboardAvoidingView, TextInput, TouchableOpacity, StatusBar } from 'react-native';
 import { useTheme } from "@react-navigation/native";
 import Fish from '../model/Fish';
@@ -6,27 +6,34 @@ import {Fish1} from "../components/Fish1";
 import * as Animatable from "react-native-animatable";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Caption, Paragraph} from "react-native-paper";
-export const FishScreen = () => {
-    const { colors } = useTheme();
+import AsyncStorage from "@react-native-community/async-storage";
+import LottieView from 'lottie-react-native'
 
+export const FishScreen = ({navigation}) => {
+    const {colors} = useTheme();
     const theme = useTheme();
 
+    const [name, setName] = useState(null)
+    const [title, setTitle] = useState(null)
+    const [quantity, setQuantity] = useState(null)
+    const [fishItems, setFishItems] = useState([]);
+    const[isLoading, setIsLoading] = useState(false)
 
-    const[name, setName] = useState(null)
-    const[title, setTitle] = useState(null)
-    const[quantity, setQuantity] = useState(null)
+    useEffect( () => {
+        setTimeout(async() => {
+            try {
+                const myArray = await AsyncStorage.getItem('fishItems');
+                setFishItems([...JSON.parse(myArray)]);
+            } catch (e) {
+                console.log(e)
+            }
+            setIsLoading(true)
+            navigation.navigate("HomeDrawer")
+        }, 2000)
+    }, [])
 
-    const[fishItems, setFishItems] = useState(
-        Fish.map((NotificationItem, index) => ({
-            key: `${index}`,
-            name: NotificationItem.name,
-            title: NotificationItem.title,
-            details: NotificationItem.details,
-            quantity: NotificationItem.quantity,
-        }))
-    );
-
-    const handleAddFish = () => {
+    const handleAddFish = async () => {
+        let myArray = await AsyncStorage.getItem('fishItems');
         Keyboard.dismiss()
         let data = {
             key: fishItems.length.toString(),
@@ -35,21 +42,31 @@ export const FishScreen = () => {
             details: '',
             quantity: quantity,
         }
-        setFishItems([...fishItems, data])
+        setFishItems([...JSON.parse(myArray), data])
         setName(null)
         setTitle(null)
         setQuantity(null)
         setIsModalVisible(false);
+
+        try {
+            await AsyncStorage.setItem('fishItems', JSON.stringify([...JSON.parse(myArray), data]));
+        } catch (e) {
+            console.log(e)
+        }
     }
 
-    const completeFish = (index) => {
+    const completeFish = async (index) => {
         let itemsCopy = [...fishItems]
         itemsCopy.splice(index, 1);
         setFishItems(itemsCopy)
-        console.log(index)
+        try {
+            await AsyncStorage.setItem('fishItems', JSON.stringify([...itemsCopy]));
+        } catch (e) {
+            console.log(e)
+        }
     }
 
-    const changeFish = (index) => {
+    const changeFish = async (index) => {
         Keyboard.dismiss()
         let data = {
             key: fishItems.length.toString(),
@@ -58,25 +75,27 @@ export const FishScreen = () => {
             details: '',
             quantity: quantity,
         }
-
-
-        setFishItems( [
+        let items = [
             ...fishItems.slice(0, index),
             fishItems[index] = data,
             ...fishItems.slice(index + 1)
-        ])
-
+        ]
+        setFishItems(items)
         setName(null)
         setTitle(null)
         setQuantity(null)
         setIsModalVisible(false);
         setIsModalFish(false)
+        try {
+            await AsyncStorage.setItem('fishItems', JSON.stringify(items));
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const openModal = () => {
-        setIsModalVisible(true);
-    }
+
+    const openModal = async () => {setIsModalVisible(true);}
 
     const closeModal = () => {
         setName(null)
@@ -88,18 +107,19 @@ export const FishScreen = () => {
 
     const [isModalFish, setIsModalFish] = useState(false)
     const [modalIndex, setModalIndex] = useState(false)
+
     const openModalFish = (index) => {
         setIsModalVisible(true);
-        setName(fishItems[index].name)
-        setTitle(fishItems[index].title)
-        setQuantity(fishItems[index].quantity.toString())
+        setName(fishItems[index].name === null ? "" : fishItems[index].name)
+        setTitle(fishItems[index].title === null ? "" : fishItems[index].title)
+        setQuantity(fishItems[index].quantity === null ? "1" : fishItems[index].quantity.toString())
         setIsModalFish(true)
         setModalIndex(index)
     }
 
     const openDeleteAlert = (index) => {
         Alert.alert(
-            "Вы действительно хотите удалить рыбку?","",
+            "Вы действительно хотите удалить рыбку?", "",
             [
                 {text: 'да', onPress: () => completeFish(index)},
                 {text: 'нет'}
@@ -109,64 +129,63 @@ export const FishScreen = () => {
 
     return (
         <View style={[styles.container, {backgroundColor: colors.background}]}>
-            <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps='handled'>
-
-
-
-
                 <Modal transparent={true} visible={isModalVisible}>
-
                     <StatusBar backgroundColor={colors.background}/>
-
-                    <Animatable.View animation="lightSpeedIn"  style={[styles.modelContentWrapper, {backgroundColor: colors.background}]}>
-
+                    <Animatable.View animation="lightSpeedIn"
+                                     style={[styles.modelContentWrapper, {backgroundColor: colors.background}]}>
                         <TouchableOpacity style={styles.closeBtnWrapper} onPress={() => closeModal()}>
                             <MaterialCommunityIcons style={styles.closeModal} name="close" size={26} color={colors.text}/>
                         </TouchableOpacity>
-
                         <View style={styles.inputWrapper}>
-                            <TextInput style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                                       placeholder="Введите имя рыбки" onChangeText={text => setName(text)} value={name}/>
+                            <TextInput
+                                style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
+                                placeholder="Введите имя рыбки" onChangeText={text => setName(text)} value={name}
+                                placeholderTextColor={'#666'}/>
                         </View>
-
                         <View style={styles.inputWrapper}>
-                            <TextInput style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                                       placeholder="Введите научное название" onChangeText={text => setTitle(text)} value={title}/>
+                            <TextInput
+                                style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
+                                placeholder="Введите научное название" onChangeText={text => setTitle(text)} value={title}
+                                placeholderTextColor={'#666'}/>
                         </View>
-
                         <View style={styles.inputWrapper}>
-                            <TextInput style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                                       placeholder="Введите количество" onChangeText={text => setQuantity(text)} value={quantity}/>
+                            <TextInput
+                                style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
+                                placeholder="Введите количество" onChangeText={text => setQuantity(text)}
+                                value={quantity} placeholderTextColor={'#666'}/>
                         </View>
-
-
                         {isModalFish ?
-                            <TouchableOpacity onPress={() => changeFish(modalIndex)} style={[styles.btnWrapper, {backgroundColor: colors.background2}]}>
+                            <TouchableOpacity onPress={() => changeFish(modalIndex)} style={[styles.btnWrapper,
+                                {backgroundColor: colors.background2}]}>
                                 <Text style={{textAlign: 'center', color: colors.text}}>Сохранить</Text>
                             </TouchableOpacity>
-                        :<TouchableOpacity onPress={() => handleAddFish()} style={[styles.btnWrapper, {backgroundColor: colors.background2}]}>
-                            <Text style={{textAlign: 'center', color: colors.text}}>Сохранить</Text>
-                        </TouchableOpacity>
-}
+                            : <TouchableOpacity onPress={() => handleAddFish()} style={[styles.btnWrapper,
+                                {backgroundColor: colors.background2}]}>
+                                <Text style={{textAlign: 'center', color: colors.text}}>Сохранить</Text>
+                            </TouchableOpacity>
+                        }
                     </Animatable.View>
                 </Modal>
 
-
-
-
-                <View style={styles.tasksWrapper}>
-                    {/* <Text style={[styles.sectionTitle, {color: colors.text}]}>Список рыбок</Text>*/}
-                    <View style={styles.items}>
-                        {
-                            fishItems.map((item, index) =>{
+            { !isLoading ? null :
+                <View style={{ paddingTop: 80, paddingHorizontal: 20, paddingBottom: 20, flexDirection: "row"}}>
+                    <TouchableOpacity style={{height: '100%', width: 50, }} onPress={() => navigation.goBack()} >
+                        <MaterialCommunityIcons name="arrow-left" size={35} color={colors.text}/>
+                    </TouchableOpacity>
+                    <Text style={[styles.sectionTitle, {color: colors.text}]}>Список рыбок</Text>
+                </View>
+            }
+            { !isLoading ? <LottieView source={require('../components/6729-fish.json')} autoPlay loop/>:
+                <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps='handled'>
+                    <View style={styles.tasksWrapper}>
+                        <View style={styles.items}>
+                            {
+                            fishItems.map((item, index) => {
                                 return (
-                                    <TouchableOpacity onPress={() => openModalFish(index)} key={index} style={[styles.item, {backgroundColor: colors.background2}]}>
-
+                                    <TouchableOpacity onPress={() => openModalFish(index)} key={index}
+                                                      style={[styles.item, {backgroundColor: colors.background2}]}>
                                         <View style={[styles.itemLeft, {width: '75%'}]}>
-
-                                            <View style={styles.square}><Fish1/></View>
-
-                                            <View>
+                                            <View style={styles.square}><Fish1/></View><View>
                                                 {
                                                     item.name === '' || item.name === null ? null :
                                                         <Paragraph style={[styles.paragraph, styles.caption,
@@ -179,7 +198,6 @@ export const FishScreen = () => {
                                                             {item.title}</Caption>
                                                 }
                                             </View>
-
                                         </View>
                                         {
                                             item.quantity === '' || item.quantity === null ?
@@ -189,29 +207,28 @@ export const FishScreen = () => {
                                                 <Paragraph style={[styles.paragraph, styles.caption,
                                                     {color: colors.text}]}>{" x" + item.quantity}</Paragraph>
                                         }
-                                        {/*  <View style={styles.circular}/>*/}
-
                                         <TouchableOpacity onPress={() => openDeleteAlert(index)}>
                                             <MaterialCommunityIcons name="close" size={26} color={colors.text}/>
                                         </TouchableOpacity>
                                     </TouchableOpacity>
-                                )})
+                                )
+                            })
                         }
                     </View>
                 </View>
-
-            </ScrollView>
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
-                { /*<TextInput placeholderTextColor="#666666"
-                           style={[styles.input, {backgroundColor: colors.background2, color: colors.text}]}
-                           placeholder={'Добавьте рыбку'} onChangeText={text => setTask(text)}
-                           value={task}/>*/}
+                </ScrollView>
+            }
+            { !isLoading ? null: <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
+                                  style={styles.writeTaskWrapper}>
                 <TouchableOpacity onPress={() => openModal()}>
-                    <View style={[styles.addWrapper, {backgroundColor: theme.dark ? '#004943' : '#009387'/*colors.background2*/, marginRight: 20}]}>
+                    <View style={[styles.addWrapper, {
+                        backgroundColor: theme.dark ? '#004943' : '#009387',
+                        marginRight: 20
+                    }]}>
                         <Text style={[styles.addText, {color: "white"}]}>+</Text>
                     </View>
                 </TouchableOpacity>
-            </KeyboardAvoidingView>
+            </KeyboardAvoidingView>}
         </View>
     )
 };
@@ -222,7 +239,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#E8EAED',
     },
     tasksWrapper: {
-        //paddingTop: 80,
         paddingHorizontal: 20,
         paddingBottom: 60
     },
