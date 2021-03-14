@@ -7,7 +7,7 @@ import {
     StyleSheet,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
 
 export const SplashScreen = ({navigation}) => {

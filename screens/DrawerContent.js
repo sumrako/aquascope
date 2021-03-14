@@ -2,12 +2,12 @@ import React from 'react'
 import {View, StyleSheet, StatusBar } from 'react-native'
 import { useTheme, Avatar, Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch } from 'react-native-paper'
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer"
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import Ionicons from  'react-native-vector-icons/Ionicons'
-import SimpleLineIcons from  'react-native-vector-icons/SimpleLineIcons'
-import Feather from  'react-native-vector-icons/Feather'
+import Icon from '@expo/vector-icons/MaterialCommunityIcons'
+import Ionicons from  '@expo/vector-icons/Ionicons'
+import SimpleLineIcons from  '@expo/vector-icons/SimpleLineIcons'
+import Feather from  '@expo/vector-icons/Feather'
 import {AuthContext} from "../components/context";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 export function DrawerContent(props) {
     const paperTheme = useTheme();

@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, TextInput, Platform, StyleSheet , StatusBar} from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Feather from '@expo/vector-icons/Feather';
 
 export const SignUpScreen = ({navigation}) => {
 

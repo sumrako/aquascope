@@ -6,7 +6,7 @@ import {StatusBar} from "expo-status-bar";
 import * as Animatable from "react-native-animatable";
 import {Caption, Paragraph, Title} from "react-native-paper";
 import {Dimensions} from 'react-native';
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import AsyncStorage from "@react-native-community/async-storage";
 const useComponentWillMount = (func) => {
     React.useMemo(func, [])

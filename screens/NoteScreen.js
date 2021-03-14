@@ -1,7 +1,7 @@
 import React, {useState, useMemo} from 'react';
 import { View, Text, StyleSheet, Keyboard, ScrollView, Platform, KeyboardAvoidingView, TextInput, TouchableOpacity} from 'react-native';
 import { useTheme } from "@react-navigation/native";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AsyncStorage from "@react-native-community/async-storage";
 import LottieView from 'lottie-react-native'
 

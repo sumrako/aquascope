@@ -4,7 +4,7 @@ import { useTheme } from "@react-navigation/native";
 import Fish from '../model/Fish';
 import {Fish1} from "../components/Fish1";
 import * as Animatable from "react-native-animatable";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import {Caption, Paragraph} from "react-native-paper";
 import AsyncStorage from "@react-native-community/async-storage";
 import LottieView from 'lottie-react-native'
@@ -129,43 +129,43 @@ export const FishScreen = ({navigation}) => {
 
     return (
         <View style={[styles.container, {backgroundColor: colors.background}]}>
-                <Modal transparent={true} visible={isModalVisible}>
-                    <StatusBar backgroundColor={colors.background}/>
-                    <Animatable.View animation="lightSpeedIn"
-                                     style={[styles.modelContentWrapper, {backgroundColor: colors.background}]}>
-                        <TouchableOpacity style={styles.closeBtnWrapper} onPress={() => closeModal()}>
-                            <MaterialCommunityIcons style={styles.closeModal} name="close" size={26} color={colors.text}/>
+            <Modal transparent={true} visible={isModalVisible}>
+                <StatusBar backgroundColor={colors.background}/>
+                <Animatable.View animation="lightSpeedIn"
+                                 style={[styles.modelContentWrapper, {backgroundColor: colors.background}]}>
+                    <TouchableOpacity style={styles.closeBtnWrapper} onPress={() => closeModal()}>
+                        <MaterialCommunityIcons style={styles.closeModal} name="close" size={26} color={colors.text}/>
+                    </TouchableOpacity>
+                    <View style={styles.inputWrapper}>
+                        <TextInput
+                            style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
+                            placeholder="Введите имя рыбки" onChangeText={text => setName(text)} value={name}
+                            placeholderTextColor={'#666'}/>
+                    </View>
+                    <View style={styles.inputWrapper}>
+                        <TextInput
+                            style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
+                            placeholder="Введите научное название" onChangeText={text => setTitle(text)} value={title}
+                            placeholderTextColor={'#666'}/>
+                    </View>
+                    <View style={styles.inputWrapper}>
+                        <TextInput
+                            style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
+                            placeholder="Введите количество" onChangeText={text => setQuantity(text)}
+                            value={quantity} placeholderTextColor={'#666'}/>
+                    </View>
+                    {isModalFish ?
+                        <TouchableOpacity onPress={() => changeFish(modalIndex)} style={[styles.btnWrapper,
+                            {backgroundColor: colors.background2}]}>
+                            <Text style={{textAlign: 'center', color: colors.text}}>Сохранить</Text>
                         </TouchableOpacity>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                                placeholder="Введите имя рыбки" onChangeText={text => setName(text)} value={name}
-                                placeholderTextColor={'#666'}/>
-                        </View>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                                placeholder="Введите научное название" onChangeText={text => setTitle(text)} value={title}
-                                placeholderTextColor={'#666'}/>
-                        </View>
-                        <View style={styles.inputWrapper}>
-                            <TextInput
-                                style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                                placeholder="Введите количество" onChangeText={text => setQuantity(text)}
-                                value={quantity} placeholderTextColor={'#666'}/>
-                        </View>
-                        {isModalFish ?
-                            <TouchableOpacity onPress={() => changeFish(modalIndex)} style={[styles.btnWrapper,
-                                {backgroundColor: colors.background2}]}>
-                                <Text style={{textAlign: 'center', color: colors.text}}>Сохранить</Text>
-                            </TouchableOpacity>
-                            : <TouchableOpacity onPress={() => handleAddFish()} style={[styles.btnWrapper,
-                                {backgroundColor: colors.background2}]}>
-                                <Text style={{textAlign: 'center', color: colors.text}}>Сохранить</Text>
-                            </TouchableOpacity>
-                        }
-                    </Animatable.View>
-                </Modal>
+                        : <TouchableOpacity onPress={() => handleAddFish()} style={[styles.btnWrapper,
+                            {backgroundColor: colors.background2}]}>
+                            <Text style={{textAlign: 'center', color: colors.text}}>Сохранить</Text>
+                        </TouchableOpacity>
+                    }
+                </Animatable.View>
+            </Modal>
 
             { !isLoading ? null :
                 <View style={{ paddingTop: 80, paddingHorizontal: 20, paddingBottom: 20, flexDirection: "row"}}>
@@ -180,12 +180,12 @@ export const FishScreen = ({navigation}) => {
                     <View style={styles.tasksWrapper}>
                         <View style={styles.items}>
                             {
-                            fishItems.map((item, index) => {
-                                return (
-                                    <TouchableOpacity onPress={() => openModalFish(index)} key={index}
-                                                      style={[styles.item, {backgroundColor: colors.background2}]}>
-                                        <View style={[styles.itemLeft, {width: '75%'}]}>
-                                            <View style={styles.square}><Fish1/></View><View>
+                                fishItems.map((item, index) => {
+                                    return (
+                                        <TouchableOpacity onPress={() => openModalFish(index)} key={index}
+                                                          style={[styles.item, {backgroundColor: colors.background2}]}>
+                                            <View style={[styles.itemLeft, {width: '75%'}]}>
+                                                <View style={styles.square}><Fish1/></View><View>
                                                 {
                                                     item.name === '' || item.name === null ? null :
                                                         <Paragraph style={[styles.paragraph, styles.caption,
@@ -198,28 +198,28 @@ export const FishScreen = ({navigation}) => {
                                                             {item.title}</Caption>
                                                 }
                                             </View>
-                                        </View>
-                                        {
-                                            item.quantity === '' || item.quantity === null ?
-                                                <Paragraph style={[styles.paragraph, styles.caption,
-                                                    {color: colors.text}]}>{" x1"}</Paragraph>
-                                                :
-                                                <Paragraph style={[styles.paragraph, styles.caption,
-                                                    {color: colors.text}]}>{" x" + item.quantity}</Paragraph>
-                                        }
-                                        <TouchableOpacity onPress={() => openDeleteAlert(index)}>
-                                            <MaterialCommunityIcons name="close" size={26} color={colors.text}/>
+                                            </View>
+                                            {
+                                                item.quantity === '' || item.quantity === null ?
+                                                    <Paragraph style={[styles.paragraph, styles.caption,
+                                                        {color: colors.text}]}>{" x1"}</Paragraph>
+                                                    :
+                                                    <Paragraph style={[styles.paragraph, styles.caption,
+                                                        {color: colors.text}]}>{" x" + item.quantity}</Paragraph>
+                                            }
+                                            <TouchableOpacity onPress={() => openDeleteAlert(index)}>
+                                                <MaterialCommunityIcons name="close" size={26} color={colors.text}/>
+                                            </TouchableOpacity>
                                         </TouchableOpacity>
-                                    </TouchableOpacity>
-                                )
-                            })
-                        }
+                                    )
+                                })
+                            }
+                        </View>
                     </View>
-                </View>
                 </ScrollView>
             }
             { !isLoading ? null: <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
-                                  style={styles.writeTaskWrapper}>
+                                                       style={styles.writeTaskWrapper}>
                 <TouchableOpacity onPress={() => openModal()}>
                     <View style={[styles.addWrapper, {
                         backgroundColor: theme.dark ? '#004943' : '#009387',

@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import Notifications from '../model/Notifications';
 import {useTheme} from "@react-navigation/native";
