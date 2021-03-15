@@ -1,13 +1,17 @@
-import React, {useState, useRef, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import { View, Text, StyleSheet, Keyboard, Modal, ScrollView, Alert, Platform, KeyboardAvoidingView, TextInput, TouchableOpacity, StatusBar } from 'react-native';
 import { useTheme } from "@react-navigation/native";
 import Fish from '../model/Fish';
-import {Fish1} from "../components/Fish1";
+import {FishClown} from "../components/FishClown"
+import {FishOrange2} from "../components/FishOrange2";;
+import {FishOrange} from "../components/FishOrange";
+import {FishBlue} from "../components/FishBlue";
 import * as Animatable from "react-native-animatable";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import {Caption, Paragraph} from "react-native-paper";
 import AsyncStorage from "@react-native-community/async-storage";
 import LottieView from 'lottie-react-native'
+
 
 export const FishScreen = ({navigation}) => {
     const {colors} = useTheme();
@@ -185,7 +189,10 @@ export const FishScreen = ({navigation}) => {
                                         <TouchableOpacity onPress={() => openModalFish(index)} key={index}
                                                           style={[styles.item, {backgroundColor: colors.background2}]}>
                                             <View style={[styles.itemLeft, {width: '75%'}]}>
-                                                <View style={styles.square}><Fish1/></View><View>
+                                                <View style={styles.square}>
+                                                    <FishOrange2/>
+                                                </View>
+                                                <View>
                                                 {
                                                     item.name === '' || item.name === null ? null :
                                                         <Paragraph style={[styles.paragraph, styles.caption,
