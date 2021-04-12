@@ -3,7 +3,9 @@ import Svg, { Path, G } from "react-native-svg"
 
 export function FishClown() {
     return (
-        <Svg viewBox="0 0 512 512" height={26} width={26}>
+        <Svg
+        viewBox="0 50 900 900" height={60} width={60}
+    >
             <Path
                 d="M352.207 99.027l-44.939 32.634L290.236 256l21.121 123.657 40.851 33.316c15.994-2.432 31.476-6.356 46.09-11.692V110.719c-14.615-5.335-30.098-9.26-46.091-11.692z"
                 fill="#efedee"

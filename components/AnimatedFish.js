@@ -1,64 +1,42 @@
-import React, {useRef, useEffect}  from 'react';
+import React from 'react';
 import {Dimensions, Animated} from 'react-native'
-import {Paragraph} from "react-native-paper";
-import {View} from "react-native-animatable";
+import {useFocusEffect} from '@react-navigation/native'
 
 export const AnimatedFish = ({children}) => {
     const screenWidth = Dimensions.get('screen').width;
     const screenHeight = Dimensions.get('screen').height;
 
-    const animate_state = {
-        start: 0,
-        end: 100
-    }
+  
+    let left = new Animated.Value(screenWidth/getRandomFloat(1.7,4.7))
+    let top = new Animated.Value(-screenHeight/getRandomFloat(3.5,7))
+    
 
-    const value = useRef(new Animated.Value(animate_state.start)).current
     const startAnimate = () => {
-        Animated.timing(value, { toValue: animate_state.end, useNativeDriver: false, duration: getRandomFloat(2000,8000) }).start()
+        let time = getRandomFloat(4000,6000)
+        Animated.timing(left, {
+            toValue: screenWidth/getRandomFloat(1.7,4.7),
+            useNativeDriver: false,
+            duration: time,
+        }).start();
+        Animated.timing(top, {
+            toValue: -screenHeight/getRandomFloat(3.5,7),
+            useNativeDriver: false,
+            duration: time,
+        }).start();
     }
 
-    const inputRange = Object.values(animate_state)
-
-    let rLef = screenWidth/getRandomFloat(1.4,5)
-    let rTo = -screenHeight/getRandomFloat(3,7)
-    let rLef2 = screenWidth/getRandomFloat(1.4,5)
-    let rTo2 = -screenHeight/getRandomFloat(3,7)
-
-    let top = value.interpolate({ inputRange, outputRange: [rTo2, rTo] })
-    let left = value.interpolate({ inputRange, outputRange: [rLef2, rLef] })
     function getRandomFloat(min, max) {
         return Math.random() * (max - min) + min;
     }
 
-    useEffect( () => {
-        let flag = true;
-        setInterval(() =>{
-            if(flag){
-                rLef = screenWidth/getRandomFloat(1.4,5)
-                rTo = -screenHeight/getRandomFloat(3,7)
-                top = value.interpolate({ inputRange, outputRange: [rTo2, rTo] })
-                left = value.interpolate({ inputRange, outputRange: [rLef2, rLef] })
-                animate_state.start = 0
-                animate_state.end = 100
-
-            }
-            else {
-                rLef2 = screenWidth/getRandomFloat(1.4,5)
-                rTo2 = -screenHeight/getRandomFloat(3,7)
-                top = value.interpolate({ inputRange, outputRange: [rTo2, rTo] })
-                left = value.interpolate({ inputRange, outputRange: [rLef2, rLef] })
-
-                animate_state.start = 100
-                animate_state.end = 0
-            }startAnimate()
-            console.log(top)
-            flag = !flag;
-        }, getRandomFloat(2000,8000))
-    }, [])
+    useFocusEffect(React.useCallback( () => {
+        startAnimate()
+        setInterval(() =>{startAnimate()}, getRandomFloat(6000,8000))
+    }, []))
 
     return (
-        <View style={{position: 'absolute', top, left}}>
+        <Animated.View style={{position: 'absolute', top: top, left: left}}>
             {children}
-        </View>
+        </Animated.View>
     )
 }

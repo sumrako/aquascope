@@ -9,10 +9,9 @@ import Feather from  '@expo/vector-icons/Feather'
 import {AuthContext} from "../components/context";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-export function DrawerContent(props) {
+export const DrawerContent = (props) => {
     const paperTheme = useTheme();
     const { signOut, toggleTheme } = React.useContext(AuthContext)
-
     return (
         <View style={{flex: 1}}>
 
@@ -43,19 +42,20 @@ export function DrawerContent(props) {
                                <Icon name="note-multiple-outline" color={color} size={size}/>
                            )} label="Заметки" onPress={() => {props.navigation.navigate('NoteScreen')}}/>
 
-                           {/*
-                           <DrawerItem icon={({color, size}) => (
+                           
+                  {/*         <DrawerItem icon={({color, size}) => (
                                <Ionicons name="settings-outline" color={color} size={size}/>
-                           )} label="Settings" onPress={() => {props.navigation.navigate('SettingsScreen')}}/>
+                           )} label="Настройки" onPress={() => {props.navigation.navigate('SettingsScreen')}}/>
 
                            <DrawerItem icon={({color, size}) => (
                                <Icon name="account-check-outline" color={color} size={size}/>
                            )} label="Support" onPress={() => {props.navigation.navigate('SupportScreen')}}/>
                            */}
                        </Drawer.Section>
-                       <Drawer.Section>
+                    { /*  <Drawer.Section>
                            <TouchableRipple onPress={() => {
                                toggleTheme();
+                               props.navigation.navigate('Home')
                            }}>
                                <View style={styles.preference}>
                                    <Caption style={{fontSize: 16}}>Тема</Caption>
@@ -65,15 +65,15 @@ export function DrawerContent(props) {
 
                                </View>
                            </TouchableRipple>
-                       </Drawer.Section>
+                       </Drawer.Section>*/}
                    </View>
                </View>
            </DrawerContentScrollView>
-            <Drawer.Section style={styles.bottomDrawerSection}>
+           {/* <Drawer.Section style={styles.bottomDrawerSection}>
                 <DrawerItem icon={({color, size}) => (
                     <Icon name="exit-to-app" color={color} size={size}/>
                 )} label="Sign Out" onPress={() => {signOut()}}/>
-            </Drawer.Section>
+            </Drawer.Section>*/}
         </View>
     )
 }

@@ -1,13 +1,33 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useTheme } from "@react-navigation/native";
-export const CalculatorScreen = () => {
+import Icon from "@expo/vector-icons/Ionicons";
+
+export const CalculatorScreen = ({navigation}) => {
     const {colors} = useTheme();
     const theme = useTheme();
     return (
-        <View style={styles.container}>
-            <Text style={[{color: colors.text, fontWeight: 'bold', fontSize: 60, textAlign: 'center'}]}>
-                Здесь должен быть калькулятор</Text>
+        <View style={[styles.container, {marginTop: 50, paddingHorizontal: 10}]}>
+
+
+        <View style={{  paddingHorizontal: 10, flexDirection: "row"}}>
+        <Icon.Button name="ios-menu" size={35}  color={colors.text} backgroundColor={colors.background} onPress={() => {
+                               navigation.openDrawer()}}  />
+                           <Text style={[styles.sectionTitle, {color: colors.text, marginTop: 5}]}>Калькуляторы</Text></View>
+
+
+                           <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps='handled' style={{ paddingTop: 20}}>
+                           <TouchableOpacity onPress={() => {navigation.navigate("AquariumVolume")}} 
+                                                          style={[styles.item, {backgroundColor: colors.background2}]}>
+                                           
+                                          <Text  style={[{color: '#72D695', fontWeight: 'bold'}]}>
+                Объем аквариума</Text>
+                                        </TouchableOpacity>
+
+
+
+
+            </ScrollView>
         </View>
     );
 };
@@ -15,7 +35,19 @@ export const CalculatorScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        /*alignItems: 'center',
+        justifyContent: 'center',*/
+    },
+    sectionTitle: {
+        fontSize: 24,
+        fontWeight: 'bold'
+    },
+    item: {
+        padding: 15,
+        borderRadius: 20,
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 20,
     },
 });

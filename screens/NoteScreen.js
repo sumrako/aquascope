@@ -66,7 +66,7 @@ export const NoteScreen = ({navigation}) => {
                     </View>
                 </View>
             </ScrollView>
-            <KeyboardAvoidingView /*behavior={Platform.OS === "ios" ? "padding" : "height"}*/ style={styles.writeTaskWrapper}>
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
                 <TextInput style={[styles.input, {backgroundColor: colors.background2, color: colors.text}]} placeholder={'Напишите заметку'}
                            value={task} onChangeText={text => setTask(text)} placeholderTextColor={'#666'}/>
                            <TouchableOpacity onPress={() => handleAddTask()}>

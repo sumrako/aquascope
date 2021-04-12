@@ -108,6 +108,7 @@ export const SignInScreen = ({navigation}) => {
             ]);
             return;
         }
+        console.log(foundUser)
         signIn(foundUser);
     }
 

@@ -7,7 +7,7 @@ import Icon from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-community/async-storage";
 import {HomeScreen} from "./HomeScreen";
-import {DetailsScreen} from "./DetailScreen";
+import {NotificationsScreen} from "./NotificationsScreen";
 import {CalculatorScreen} from "./CalculatorScreen";
 import { useTheme } from '@react-navigation/native';
 import {ManualScreen} from "./ManualScreen";
@@ -29,7 +29,7 @@ export const MainTabScreen = () => {
                 component={HomeStackScreen}
                 options={{
                     tabBarLabel: 'Аквариум',
-                    tabBarColor: theme.dark ? '#004943' : '#009387',
+                    tabBarColor: '#009387',//theme.dark ? '#004943' : '#009387',
                     tabBarIcon: ({color}) => (
                         <MaterialCommunityIcons name="fishbowl" color={color} size={25}/>
                     ),
@@ -38,10 +38,10 @@ export const MainTabScreen = () => {
 
             <Tab.Screen
                 name="Notifications"
-                component={DetailsStackScreen}
+                component={NotificationsScreen}
                 options={{
                     tabBarLabel: 'Оповещения',
-                    tabBarColor: theme.dark ? '#0F327F' : '#1f65ff',
+                    tabBarColor: '#1f65ff',//theme.dark ? '#0F327F' : '#1f65ff',
                     tabBarIcon: ({color}) => (
                         <Icon name="ios-notifications" color={color} size={25}/>
                     ),
@@ -52,7 +52,7 @@ export const MainTabScreen = () => {
                 component={CalculatorScreen}
                 options={{
                     tabBarLabel: 'Калькулятор',
-                    tabBarColor: theme.dark ? '#681430':'#d02860',
+                    tabBarColor: '#72D695',//theme.dark ? '#681430':'#d02860',
                     tabBarIcon: ({color}) => (
                         <MaterialCommunityIcons name="calculator-variant" color={color} size={25}/>
                     ),
@@ -63,7 +63,7 @@ export const MainTabScreen = () => {
                 component={ManualScreen}
                 options={{
                     tabBarLabel: 'Мануал',
-                    tabBarColor: theme.dark ? '#342756':'#694fad',
+                    tabBarColor: '#899FFE',//theme.dark ? '#342756':'#694fad',
                     tabBarIcon: ({color}) => (
                         <MaterialCommunityIcons name="book-open-page-variant" color={color} size={25}/>
                     ),
@@ -81,7 +81,7 @@ const HomeStackScreen = ({navigation}) => {
     return (
         <HomeStack.Navigator screenOptions={{
             headerStyle: {
-                backgroundColor: theme.dark ? '#004943' : '#009387',
+                backgroundColor: '#009387',//theme.dark ? '#004943' : '#009387',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -92,7 +92,7 @@ const HomeStackScreen = ({navigation}) => {
             <HomeStack.Screen name="Home" component={HomeScreen} options={{
                 title: 'Аквариум',
                 headerLeft: () => (
-                    <Icon.Button name="ios-menu" size={25} backgroundColor={theme.dark ? '#004943' : '#009387'} onPress={() => {
+                    <Icon.Button name="ios-menu" size={25} backgroundColor={'#009387'/*theme.dark ? '#004943' : '#009387'*/} onPress={() => {
                         navigation.openDrawer()}}
                     />)
             }}/>
@@ -100,12 +100,12 @@ const HomeStackScreen = ({navigation}) => {
     )
 }
 
-const DetailsStackScreen = ({navigation}) => {
+const NotificationsStackScreen = ({navigation}) => {
     const theme = useTheme();
     return (
         <DetailsStack.Navigator screenOptions={{
             headerStyle: {
-                backgroundColor: theme.dark ? '#0F327F' : '#1f65ff',
+                backgroundColor:'#1f65ff',// theme.dark ? '#0F327F' : '#1f65ff',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -113,10 +113,10 @@ const DetailsStackScreen = ({navigation}) => {
             },
             animationEnabled: false,
         }}>
-            <DetailsStack.Screen name="Details" component={DetailsScreen} options={{
+            <DetailsStack.Screen name="Details" component={NotificationsScreen} options={{
                 title: 'Оповещения',
                 headerLeft: () => (
-                    <Icon.Button name="ios-menu" size={25} backgroundColor={theme.dark ? '#0F327F' : '#1f65ff'} onPress={() => {
+                    <Icon.Button name="ios-menu" size={25} backgroundColor={'#1f65ff'/*theme.dark ? '#0F327F' : '#1f65ff'*/} onPress={() => {
                         navigation.openDrawer()}}
                     />)
             }}/>

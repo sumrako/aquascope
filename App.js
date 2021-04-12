@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, ActivityIndicator} from 'react-native';
+import { View, ActivityIndicator, useColorScheme, Appearance} from 'react-native';
 import {
     NavigationContainer,
     DefaultTheme as NavigationDefaultTheme,
@@ -18,15 +18,23 @@ import{ SupportScreen }from './screens/SupportScreen';
 import{ SettingsScreen }from './screens/SettingsScreen';
 import {NoteScreen} from './screens/NoteScreen';
 import {FishScreen} from './screens/FishScreen';
+import {HomeScreen} from './screens/HomeScreen';
 import { AuthContext } from './components/context';
 import { RootStackScreen }from './screens/RootStackScreen';
+
+import { AquariumVolume }from './calculators/AquariumVolume';
+
 import AsyncStorage from '@react-native-community/async-storage';
 import ProfileScreen from "./screens/ProfileScreen";
+import Users from "./model/users";
+import { useTheme } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native'
 const Drawer = createDrawerNavigator();
 
-const App = () => {
+const App = ({navigation}) => {
+    const { colors } = useTheme();
+    const [isDarkTheme, setIsDarkTheme] = React.useState(Appearance.getColorScheme() === "dark")
 
-    const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
     const initialLoginState = {
         isLoading: true,
@@ -40,8 +48,8 @@ const App = () => {
         colors: {
             ...NavigationDefaultTheme.colors,
             ...PaperDefaultTheme.colors,
-            background: '#ffffff',
-            background2: '#E9EAEC',
+            background: '#F2F2F2',
+            background2: '#FCFCFC',
             backgroundOpacity: 'rgba(0,73,67, 0.5)',
             text: '#333333'
         }
@@ -53,14 +61,14 @@ const App = () => {
         colors: {
             ...NavigationDarkTheme.colors,
             ...PaperDarkTheme.colors,
-            background: '#000',
-            background2: '#333333',
+            background: '#010101',
+            background2: '#171717',
             backgroundOpacity: 'rgba(0,36,33, 0.5)',
-            text: '#ffffff'
+            text: '#EEEEEE'
         }
     }
 
-    const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
+    let theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
     const loginReducer = (prevState, action) => {
         switch( action.type ) {
@@ -119,12 +127,14 @@ const App = () => {
         signUp: () => {
 
         },
-        toggleTheme: async () => {
-            setIsDarkTheme( isDarkTheme => !isDarkTheme )
+        toggleTheme: () => {
+            //setIsDarkTheme(isDarkTheme => !isDarkTheme)
+            setIsDarkTheme(Appearance.getColorScheme() === "dark")
         }
     }), []);
 
     useEffect(() => {
+        
         setTimeout(async() => {
             let userToken = null;
             try {
@@ -137,11 +147,17 @@ const App = () => {
         }, 0);
     }, []);
 
+
+    useEffect(() => {
+   
+        setInterval(() =>{authContext.toggleTheme()}, 1)
+    }, [])
+
     if( loginState.isLoading ) {
         return(
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+            <View style={{flex:1, justifyContent:'center',alignItems:'center', backgroundColor: "white"}}>
               <ActivityIndicator size="large"/>
-                {/* <LottieView source={require('./components/6729-fish.json')} autoPlay loop/>*/}
+                 <LottieView source={require('./components/6729-fish.json')} autoPlay loop/>
             </View>
         );
     }
@@ -150,14 +166,17 @@ const App = () => {
         <PaperProvider theme={theme}>
             <AuthContext.Provider value={authContext}>
                 <NavigationContainer theme={theme}>
-                    { loginState.userToken !== null ?
+                    { loginState.userToken === null ?
                             <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-                                <Drawer.Screen name="FishScreen" component={FishScreen} />
+                              <Drawer.Screen name="FishScreen" component={FishScreen} />
                                 <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
                                 <Drawer.Screen name="Profile" component={ProfileScreen} />
                                 <Drawer.Screen name="SupportScreen" component={SupportScreen} />
                                 <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
                                 <Drawer.Screen name="NoteScreen" component={NoteScreen} />
+
+
+                                <Drawer.Screen name="AquariumVolume" component={AquariumVolume} />
                             </Drawer.Navigator>
                         : <RootStackScreen/>
                     }

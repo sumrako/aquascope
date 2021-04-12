@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-
+import Icon from "@expo/vector-icons/Ionicons";
 import Notifications from '../model/Notifications';
 import {useTheme} from "@react-navigation/native";
 
-export const DetailsScreen = () => {
+export const NotificationsScreen = ({ navigation}) => {
     const { colors } = useTheme();
     const [listData, setListData] = useState(
         Notifications.map((NotificationItem, index) => ({
@@ -89,7 +89,7 @@ export const DetailsScreen = () => {
                             <View style={styles.square}>
                                 <MaterialCommunityIcons name="bell-ring-outline" size={26} color={colors.text}/>
                             </View>
-                            <Text style={[styles.itemText, {color: colors.text}]}>{data.item.title}</Text>
+                            <Text style={[styles.itemText, {color: '#4C9AFC', fontWeight: 'bold'}]}>{data.item.title}</Text>
                         </View>
                         <View /*style={styles.circular}*//>
 
@@ -208,7 +208,16 @@ export const DetailsScreen = () => {
     };
 
     return (
-        <View style={[styles.container, {backgroundColor: colors.background}]}>
+        <View style={[styles.container, {marginTop: 50}]}>
+
+
+
+
+<View style={{  paddingHorizontal: 20, paddingBottom: 0, flexDirection: "row"}}>
+        <Icon.Button name="ios-menu" size={35}  color={colors.text} backgroundColor={colors.background} onPress={() => {
+                               navigation.openDrawer()}}  />
+                           <Text style={[styles.sectionTitle, {color: colors.text, marginTop: 5}]}>Оповешения</Text></View>
+
             <View style={styles.tasksWrapper}>
                 <SwipeListView
                     data={listData}
@@ -235,7 +244,7 @@ export const DetailsScreen = () => {
 
 const styles = StyleSheet.create({
     tasksWrapper: {
-        marginTop:10,
+        marginTop: 15,
         paddingHorizontal: 10,
     },
     sectionTitle: {
@@ -245,7 +254,7 @@ const styles = StyleSheet.create({
 
     item: {
         padding: 15,
-        borderRadius: 10,
+        borderRadius: 20,
         /* flexDirection: 'row',
          alignItems: 'center',
          justifyContent: 'space-between',*/
@@ -279,7 +288,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     rowFront: {
-        borderRadius: 10,
+        borderRadius: 20,
         height: 60,
         margin: 5,
         marginBottom: 15,
@@ -297,7 +306,7 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         margin: 5,
         marginBottom: 15,
-        borderRadius: 10,
+        borderRadius: 20,
     },
     backRightBtn: {
         alignItems: 'flex-end',
@@ -312,15 +321,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#1f65ff',
         right: 76,
         width: 150,
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
+        borderTopLeftRadius: 20,
+        borderBottomLeftRadius: 20,
     },
     backRightBtnRight: {
         backgroundColor: 'red',
         width: 75,
         right: 1,
-        borderTopRightRadius: 10,
-        borderBottomRightRadius: 10,
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20,
     },
     trash: {
         height: 25,
