@@ -53,7 +53,7 @@ export const ManualScreen = ({navigation}) => {
  <Icon.Button name="ios-menu" size={35}  color={colors.text} backgroundColor={colors.background} onPress={() => {
                         navigation.openDrawer()}}
                     />
-                    <Text style={[styles.sectionTitle, {color: colors.text, marginTop: 5}]}>Мануал</Text></View>
+                    <Text style={[styles.sectionTitle, {color: colors.text, marginTop: 6}]}>Мануал</Text></View>
 
 
 
@@ -102,7 +102,7 @@ export const ManualScreen = ({navigation}) => {
            
 
                <View style={{marginTop: 5,  paddingHorizontal: 20, paddingBottom: 20, flexDirection: "row"}}>
-                 <TouchableOpacity style={{height: '100%', width: 50, }} onPress={() => closeModal()} >
+                 <TouchableOpacity style={{height: '100%', width: 50}} onPress={() => closeModal()} >
                   <MaterialCommunityIcons name="arrow-left" size={35} color={colors.text}/>
                    </TouchableOpacity>
                     <Text style={[styles.sectionTitle, {color: colors.text}]}>{title}</Text></View>

@@ -13,19 +13,22 @@ export const CalculatorScreen = ({navigation}) => {
         <View style={{  paddingHorizontal: 10, flexDirection: "row"}}>
         <Icon.Button name="ios-menu" size={35}  color={colors.text} backgroundColor={colors.background} onPress={() => {
                                navigation.openDrawer()}}  />
-                           <Text style={[styles.sectionTitle, {color: colors.text, marginTop: 5}]}>Калькуляторы</Text></View>
+                           <Text style={[styles.sectionTitle, {color: colors.text, marginTop: 6}]}>Калькуляторы</Text></View>
 
 
                            <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps='handled' style={{ paddingTop: 20}}>
                            <TouchableOpacity onPress={() => {navigation.navigate("AquariumVolume")}} 
                                                           style={[styles.item, {backgroundColor: colors.background2}]}>
                                            
-                                          <Text  style={[{color: '#72D695', fontWeight: 'bold'}]}>
-                Объем аквариума</Text>
+                                          <Text  style={[{color: '#72D695', fontWeight: 'bold'}]}> Объем аквариума</Text>
                                         </TouchableOpacity>
 
 
-
+                                        <TouchableOpacity onPress={() => {navigation.navigate("CO2Level")}} 
+                                                          style={[styles.item, {backgroundColor: colors.background2}]}>
+                                           
+                                          <Text  style={[{color: '#72D695', fontWeight: 'bold'}]}>Уровень СО2</Text>
+                                        </TouchableOpacity>
 
             </ScrollView>
         </View>
@@ -35,8 +38,6 @@ export const CalculatorScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        /*alignItems: 'center',
-        justifyContent: 'center',*/
     },
     sectionTitle: {
         fontSize: 24,

@@ -23,6 +23,7 @@ import { AuthContext } from './components/context';
 import { RootStackScreen }from './screens/RootStackScreen';
 
 import { AquariumVolume }from './calculators/AquariumVolume';
+import { CO2Level }from './calculators/CO2Level';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import ProfileScreen from "./screens/ProfileScreen";
@@ -35,10 +36,9 @@ const App = ({navigation}) => {
     const { colors } = useTheme();
     const [isDarkTheme, setIsDarkTheme] = React.useState(Appearance.getColorScheme() === "dark")
 
-
     const initialLoginState = {
         isLoading: true,
-        userName: null,
+        userName: null, 
         userToken: null,
     };
 
@@ -129,12 +129,12 @@ const App = ({navigation}) => {
         },
         toggleTheme: () => {
             //setIsDarkTheme(isDarkTheme => !isDarkTheme)
-            setIsDarkTheme(Appearance.getColorScheme() === "dark")
+            setIsDarkTheme(Appearance.getColorScheme() !== "dark")
         }
     }), []);
 
     useEffect(() => {
-        
+      
         setTimeout(async() => {
             let userToken = null;
             try {
@@ -149,7 +149,6 @@ const App = ({navigation}) => {
 
 
     useEffect(() => {
-   
         setInterval(() =>{authContext.toggleTheme()}, 1)
     }, [])
 
@@ -177,6 +176,7 @@ const App = ({navigation}) => {
 
 
                                 <Drawer.Screen name="AquariumVolume" component={AquariumVolume} />
+                                <Drawer.Screen name="CO2Level" component={CO2Level} />
                             </Drawer.Navigator>
                         : <RootStackScreen/>
                     }

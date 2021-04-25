@@ -1,11 +1,9 @@
-import React, {useState} from 'react';
-
+import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { createStackNavigator } from "@react-navigation/stack";
-
+import {StyleSheet, View, Text} from 'react-native'
 import Icon from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import AsyncStorage from "@react-native-community/async-storage";
 import {HomeScreen} from "./HomeScreen";
 import {NotificationsScreen} from "./NotificationsScreen";
 import {CalculatorScreen} from "./CalculatorScreen";
@@ -17,59 +15,38 @@ const Tab = createMaterialBottomTabNavigator()
 
 export const MainTabScreen = () => {
     const theme = useTheme();
-
+    const { colors } = useTheme();
     return  (
-        <Tab.Navigator
-            initialRouteName="Home"
-            activeColor="#fff"
-            barStyle={{backgroundColor: 'tomato'}}
-        >
-            <Tab.Screen
-                name="Home"
-                component={HomeStackScreen}
-                options={{
-                    tabBarLabel: 'Аквариум',
-                    tabBarColor: '#009387',//theme.dark ? '#004943' : '#009387',
-                    tabBarIcon: ({color}) => (
+        <Tab.Navigator initialRouteName="Home" activeColor="#fff" barStyle={{backgroundColor: 'tomato'}}>
+            <Tab.Screen name="Home"  component={HomeScreen} options={{
+                tabBarLabel: 'Аквариум',
+                tabBarColor: theme.dark ? '#004943' : '#009387',
+                tabBarIcon: ({color}) => (
                         <MaterialCommunityIcons name="fishbowl" color={color} size={25}/>
-                    ),
-                }}
-            />
-
-            <Tab.Screen
-                name="Notifications"
-                component={NotificationsScreen}
-                options={{
-                    tabBarLabel: 'Оповещения',
-                    tabBarColor: '#1f65ff',//theme.dark ? '#0F327F' : '#1f65ff',
-                    tabBarIcon: ({color}) => (
-                        <Icon name="ios-notifications" color={color} size={25}/>
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Calculator"
-                component={CalculatorScreen}
-                options={{
-                    tabBarLabel: 'Калькулятор',
-                    tabBarColor: '#72D695',//theme.dark ? '#681430':'#d02860',
-                    tabBarIcon: ({color}) => (
-                        <MaterialCommunityIcons name="calculator-variant" color={color} size={25}/>
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Manual"
-                component={ManualScreen}
-                options={{
-                    tabBarLabel: 'Мануал',
-                    tabBarColor: '#899FFE',//theme.dark ? '#342756':'#694fad',
-                    tabBarIcon: ({color}) => (
-                        <MaterialCommunityIcons name="book-open-page-variant" color={color} size={25}/>
-                    ),
-                }}
-            />
-
+                      
+                ),
+            }}/>
+            <Tab.Screen name="Notifications" component={NotificationsScreen} options={{
+                tabBarLabel: 'Оповещения',
+                tabBarColor: theme.dark ? '#0F327F' : '#1f65ff',
+                tabBarIcon: ({color}) => (
+                    <Icon name="ios-notifications" color={color} size={25}/>
+                ),
+            }}/>
+            <Tab.Screen name="Calculator" component={CalculatorScreen} options={{
+                tabBarLabel: 'Калькулятор',
+                tabBarColor: theme.dark ? '#396A4A' : '#72D695',
+                tabBarIcon: ({color}) => (
+                    <MaterialCommunityIcons name="calculator-variant" color={color} size={25}/>
+                ),
+            }}/>
+            <Tab.Screen name="Manual"  component={ManualScreen} options={{
+                tabBarLabel: 'Мануал',
+                tabBarColor: theme.dark ? '#434E7E' : '#899FFE',
+                tabBarIcon: ({color}) => (
+                    <MaterialCommunityIcons name="book-open-page-variant" color={color} size={25}/>
+                ),
+            }}/>
         </Tab.Navigator>
     )
 }
@@ -81,7 +58,7 @@ const HomeStackScreen = ({navigation}) => {
     return (
         <HomeStack.Navigator screenOptions={{
             headerStyle: {
-                backgroundColor: '#009387',//theme.dark ? '#004943' : '#009387',
+                backgroundColor: theme.dark ? '#004943' : '#009387',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -92,7 +69,7 @@ const HomeStackScreen = ({navigation}) => {
             <HomeStack.Screen name="Home" component={HomeScreen} options={{
                 title: 'Аквариум',
                 headerLeft: () => (
-                    <Icon.Button name="ios-menu" size={25} backgroundColor={'#009387'/*theme.dark ? '#004943' : '#009387'*/} onPress={() => {
+                    <Icon.Button name="ios-menu" size={25} backgroundColor={theme.dark ? '#004943' : '#009387'} onPress={() => {
                         navigation.openDrawer()}}
                     />)
             }}/>
@@ -123,3 +100,18 @@ const NotificationsStackScreen = ({navigation}) => {
         </DetailsStack.Navigator>
     )
 }
+
+
+
+const styles = StyleSheet.create({
+    shadow: {
+        shadowColor: '#7f5df0',
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
+        elevation: 5
+    }
+})

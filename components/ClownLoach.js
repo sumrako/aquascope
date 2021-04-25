@@ -5,7 +5,7 @@ import Svg, { Ellipse, Path } from "react-native-svg"
 export function ClownLoach() {
   return (
    <Svg
-            viewBox="80 50 1080 1080" height={60} width={60}
+            viewBox="-40 -100 1080 1080" height={60} width={60}
         >
       <Ellipse
         cx={755.12}
