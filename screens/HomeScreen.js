@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useRef} from 'react';
-import {Animated, View, Text, StyleSheet,TouchableOpacity, Image, ScrollView } from 'react-native';
+import {Animated, View, Text, StyleSheet,TouchableOpacity, Image, ScrollView , Switch} from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import SvgAquarium from "../components/svgAquarium";
 import {StatusBar} from "expo-status-bar";
@@ -86,8 +86,10 @@ export const HomeScreen = ({navigation, useIsFocused}) => {
             </View>
 
 <View style={{height: screenHeight - 154, width: '100%'}}>
+
             <Animated.View  style={ {color: colors.text, textAlign: 'center', height: height}}/>
             <SvgAquarium/>
+    
             <View>
                 { 
                     isLoading ?   fishItems.map((item, index) => {

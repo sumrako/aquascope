@@ -24,6 +24,8 @@ import { RootStackScreen }from './screens/RootStackScreen';
 
 import { AquariumVolume }from './calculators/AquariumVolume';
 import { CO2Level }from './calculators/CO2Level';
+import { AquariumWater }from './calculators/AquariumWater';
+import {WaterBalance }from './calculators/WaterBalance';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import ProfileScreen from "./screens/ProfileScreen";
@@ -177,6 +179,8 @@ const App = ({navigation}) => {
 
                                 <Drawer.Screen name="AquariumVolume" component={AquariumVolume} />
                                 <Drawer.Screen name="CO2Level" component={CO2Level} />
+                                <Drawer.Screen name="AquariumWater" component={AquariumWater} />
+                                <Drawer.Screen name="WaterBalance" component={WaterBalance} />
                             </Drawer.Navigator>
                         : <RootStackScreen/>
                     }

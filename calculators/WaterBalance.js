@@ -4,16 +4,16 @@ import { useTheme } from "@react-navigation/native";
 import {Caption, Paragraph} from "react-native-paper";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-export const AquariumVolume = ({navigation}) => {
+export const WaterBalance = ({navigation}) => {
     const screenWidth = Dimensions.get('screen').width;
     const screenHeight = Dimensions.get('screen').height;
     const {colors} = useTheme();
     const theme = useTheme();
-    const [lengthA, setLengthA] = useState(null)
-    const [lengthB, setLengthB] = useState(null)
-    const [height, setHeight] = useState(null)
-    const [thickness, setThickness] = useState(null)
-    const [groundHeight, setGroundHeight] = useState(null)
+    const [value1, setValue1] = useState(null)
+    const [value2, setValue2] = useState(null)
+    const [value3, setValue3] = useState(null)
+    const [value4, setValue4] = useState(null)
+    const [value5, setValue5] = useState(null)
 
     return (
         <View style={styles.container}>
@@ -21,49 +21,64 @@ export const AquariumVolume = ({navigation}) => {
                 <TouchableOpacity style={{height: '100%', width: 50, }} onPress={() => {navigation.goBack(); Keyboard.dismiss()}}>
                     <MaterialCommunityIcons name="arrow-left" size={35} color={colors.text}/>
                 </TouchableOpacity>
-                <Text style={[styles.sectionTitle, {color: colors.text}]}>Объем аквариума</Text>
+                <Text style={[styles.sectionTitle, {color: colors.text}]}>Водный баланс</Text>
             </View>
             <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps='handled'>
-                <Caption style={[styles.caption, {color: "#9B9B9B"}]}>Прямоугольный аквариум</Caption>
-                <Image style={{ width: screenWidth - 40, height: screenWidth - 190}}
-                source={theme.dark ? require('./AquariumPryamWhite.png') : require('./AquariumPryamBlack.png')}/>
+                
                 <View>
                     <View style={{flexDirection: 'row'}}>
                         <View style={{justifyContent: 'flex-start', width: '49%', marginRight: '2%'}}>
-                            <Text style={{color: '#72D695', marginLeft: 20}}>Длина A(cm)</Text>
+                            <Text style={{color: '#72D695', marginLeft: 10}}>RO вода (литров){"\n"}</Text>
                                 <TextInput style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                                placeholder="" onChangeText={text => setLengthA(text)} value={lengthA} placeholderTextColor={'#666'} />
+                                placeholder="" onChangeText={text => setValue1(text)} value={value1} placeholderTextColor={'#666'} />
                         </View>
                         <View style={{justifyContent: 'flex-end', width: '49%'}}>
-                            <Text style={{color: '#72D695', marginLeft: 20}}>Длина B(cm)</Text>
+                            <Text style={{color: '#72D695', marginLeft: 10}}>Водопроводная вода</Text>
                             <TextInput style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                            placeholder="" onChangeText={text => setLengthB(text)} value={lengthB} placeholderTextColor={'#666'}/>
+                            placeholder="" onChangeText={text => setValue2(text)} value={value2} placeholderTextColor={'#666'}/>
                         </View>
                     </View>  
+
+
+
+
+
+                    <View style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text, marginTop: 15, padding: 15}]}>
+                    <Text style={{color: '#72D695', fontWeight: 'bold', marginBottom: 10}}>Результат:</Text>
+                    <Text style={{color: colors.text}}>Соотношение воды : 1: {value1 / value2} </Text>
+                    <Text style={{color: colors.text}}>Коэффициент :   {(value1 / value2)*100} </Text>
+                </View>
+
+
+                    
                     <View>
-                        <Text style={{color: '#72D695', marginLeft: 20}}>Высота аквариума(cm)</Text>
+                        <Text style={{color: '#72D695', marginLeft: 10, marginTop: 20}}>Объём воды RO (литров)</Text>
                         <TextInput style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                        placeholder="" onChangeText={text => setHeight(text)} value={height} placeholderTextColor={'#666'}/>
+                        placeholder="" onChangeText={text => setValue3(text)} value={value3} placeholderTextColor={'#666'}/>
                     </View>
                     <View style={{flexDirection: 'row'}}>
-                        <View style={{justifyContent: 'flex-start', width: '49%', marginRight: '2%'}}>
-                            <Text style={{color: '#72D695', marginLeft: 20}}>Толщина стекла(mm)</Text>
+                        <View style={{justifyContent: 'flex-start', width: '49%', marginRight: '2%', marginTop: 20}}>
+                            <Text style={{color: '#72D695', marginLeft: 10}}>Соотношение воды{"\n"}</Text>
                             <TextInput style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                            placeholder="" onChangeText={text => setThickness(text)} value={thickness} placeholderTextColor={'#666'}/>
+                            placeholder="" onChangeText={text => setValue4(text)} value={value4} placeholderTextColor={'#666'}/>
                         </View>
-                        <View style={{justifyContent: 'flex-end', width: '49%'}}>
-                            <Text style={{color: '#72D695', marginLeft: 20}}>Высота грунта(cm)</Text>
+                        <View style={{justifyContent: 'flex-end', width: '49%', marginTop: 20}}>
+                            <Text style={{color: '#72D695', marginLeft: 10}}>Объём  воды(литров) </Text>
                             <TextInput style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                            placeholder="" onChangeText={text => setGroundHeight(text)} value={groundHeight} placeholderTextColor={'#666'}/>
+                            placeholder="" onChangeText={text => setValue5(text)} value={value5} placeholderTextColor={'#666'}/>
                         </View>
                     </View>  
+
+
+
+
+                    
                 </View>
                 <View style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text, marginTop: 15, padding: 15}]}>
                     <Text style={{color: '#72D695', fontWeight: 'bold', marginBottom: 10}}>Результат:</Text>
-                    <Text style={{color: colors.text}}>Объем: Брутто - {lengthA * lengthB * height / 1000} литров</Text>
-                    <Text style={{color: colors.text}}>              Нетто - {lengthA * lengthB * height / 1000 - 
-                    ((lengthA * lengthB + 2 * lengthA * height + 2 * lengthB * height) * thickness)/10000 } литров</Text>
-                    <Text style={{marginTop: 10, color: colors.text}}>Вес грунта: {lengthA * lengthB * groundHeight * 0.0015} кг</Text>
+                    
+                    <Text style={{color: colors.text}}>Нужно добавить - {value3 * value5 / value4 } литров водопроводной воды</Text>
+                    
                 </View>
             </ScrollView>
         </View>

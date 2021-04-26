@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Animated, TouchableOpacity} from 'react-native';
-import {SwipeListView} from 'react-native-swipe-list-view';
+import {View, Text, StyleSheet, TouchableOpacity, Switch, Dimensions} from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Icon from "@expo/vector-icons/Ionicons";
 import Notifications from '../model/Notifications';
@@ -8,132 +7,39 @@ import {useTheme} from "@react-navigation/native";
 
 export const NotificationsScreen = ({ navigation}) => {
     const { colors } = useTheme();
+    const screenWidth = Dimensions.get('screen').width;
+    const screenHeight = Dimensions.get('screen').height;
     const [listData, setListData] = useState(
-        Notifications.map((NotificationItem, index) => ({
-            key: `${index}`,
-            title: NotificationItem.title,
-            details: NotificationItem.details,
-        })),
-    );
+       [
+            {
+                key: 1,
+                title: 'Покорми рыбок',
+                active: false
+            },
+            {
+                key: 2,
+                title: 'Почисти аквариум',
+                active: false
+            },
+            {
+                key: 3,
+                title: 'Поменяй воду в аквариуме',
+                active: false
+            },
+        ])
 
-    const closeRow = (rowMap, rowKey) => {
-        if (rowMap[rowKey]) {
-            rowMap[rowKey].closeRow();
-        }
-    };
+        const [active0, setActive0] = useState(false)
+        const [active1, setActive1] = useState(false)
+        const [active2, setActive2] = useState(false)
 
-    const deleteRow = (rowMap, rowKey) => {
-        closeRow(rowMap, rowKey);
-        const newData = [...listData];
-        const prevIndex = listData.findIndex(item => item.key === rowKey);
-        newData.splice(prevIndex, 1);
-        setListData(newData);
-    };
 
-    const onRowDidOpen = rowKey => {
-        console.log('This row opened', rowKey);
-    };
+    const toggleNotification = (index) => {
+        index === 0 ? setActive0(data => !data) :
+        index === 1 ? setActive1(data => !data) :
+        setActive2(data => !data) 
+    }
 
-    const onLeftActionStatusChange = rowKey => {
-        console.log('onLeftActionStatusChange', rowKey);
-    };
-
-    const onRightActionStatusChange = rowKey => {
-        console.log('onRightActionStatusChange', rowKey);
-    };
-
-    const onRightAction = rowKey => {
-        console.log('onRightAction', rowKey);
-    };
-
-    const onLeftAction = rowKey => {
-        console.log('onLeftAction', rowKey);
-    };
-
-    const VisibleItem = props => {
-        const { data, rowHeightAnimatedValue, removeRow, rightActionState} = props;
-
-        if (rightActionState) {
-            Animated.timing(rowHeightAnimatedValue, {toValue: 0, duration: 200, useNativeDriver: false, }).start(() => {
-                removeRow();
-            });
-        }
-
-        return (
-            <View style={[styles.item, {backgroundColor: colors.background2}]}>
-                <TouchableOpacity onPress={() => console.log('Element touched')}>
-                    <View style={{flexDirection: 'row',  alignItems: 'center', justifyContent: 'space-between',}}>
-                        <View style={[styles.itemLeft, {flexDirection: 'row'}]}>
-                            <View style={styles.square}>
-                                <MaterialCommunityIcons name="bell-ring-outline" size={26} color={colors.text}/>
-                            </View>
-                            <Text style={[styles.itemText, {color: '#1f65ff', fontWeight: 'bold'}]}>{data.item.title}</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
-        );
-    };
-
-    const renderItem = (data, rowMap) => {
-        const rowHeightAnimatedValue = new Animated.Value(60);
-
-        return (
-            <VisibleItem data={data} rowHeightAnimatedValue={rowHeightAnimatedValue} removeRow={() => deleteRow(rowMap, data.item.key)}/>
-        );
-    };
-
-    const HiddenItemWithActions = props => {
-        const { swipeAnimatedValue, leftActionActivated, rightActionActivated, rowActionAnimatedValue, rowHeightAnimatedValue, onClose, onDelete,
-        } = props;
-
-        if (rightActionActivated) {
-            Animated.spring(rowActionAnimatedValue, { toValue: 500, useNativeDriver: false}).start();
-        } else {
-            Animated.spring(rowActionAnimatedValue, { toValue: 75, useNativeDriver: false}).start();
-        }
-
-        return (
-            <Animated.View style={[styles.rowBack, {height: rowHeightAnimatedValue}]}>
-                <Text>Left</Text>
-                {
-                    !leftActionActivated && (
-                        <TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnLeft]} onPress={onClose}>
-                            <MaterialCommunityIcons name="close-circle-outline" size={25} color="#fff"/>
-                        </TouchableOpacity>
-                    )
-                }
-                {
-                    !leftActionActivated && (
-                        <Animated.View style={[styles.backRightBtn,styles.backRightBtnRight, {flex: 1, width: rowActionAnimatedValue}]}>
-                            <TouchableOpacity style={[styles.backRightBtn, styles.backRightBtnRight]} onPress={onDelete}>
-                                <Animated.View style={[styles.trash, {transform: [{ scale: swipeAnimatedValue.interpolate({
-                                    inputRange: [-90, -45], outputRange: [1, 0], extrapolate: 'clamp'})}]}]}>
-                                    <MaterialCommunityIcons name="trash-can-outline"  size={25} color="#fff"/>
-                                </Animated.View>
-                            </TouchableOpacity>
-                        </Animated.View>
-                    )
-                }
-            </Animated.View>
-        );
-    };
-
-    const renderHiddenItem = (data, rowMap) => {
-        const rowActionAnimatedValue = new Animated.Value(75);
-        const rowHeightAnimatedValue = new Animated.Value(60);
-
-        return (
-            <HiddenItemWithActions
-                data={data}
-                rowMap={rowMap}
-                rowActionAnimatedValue={rowActionAnimatedValue}
-                rowHeightAnimatedValue={rowHeightAnimatedValue}
-                onClose={() => closeRow(rowMap, data.item.key)}
-                onDelete={() => deleteRow(rowMap, data.item.key)}/>
-        );
-    };
+   
 
     return (
         <View style={[styles.container, {marginTop: 50}]}>
@@ -143,23 +49,46 @@ export const NotificationsScreen = ({ navigation}) => {
                     <Text style={[styles.sectionTitle, {color: colors.text, marginTop: 6}]}>Оповещения</Text>
             </View>
             <View style={styles.tasksWrapper}>
-                <SwipeListView
-                    data={listData}
-                    renderItem={renderItem}
-                    renderHiddenItem={renderHiddenItem}
-                    leftOpenValue={75}
-                    rightOpenValue={-150}
-                    disableRightSwipe
-                    onRowDidOpen={onRowDidOpen}
-                    leftActivationValue={100}
-                    rightActivationValue={-200}
-                    leftActionValue={0}
-                    rightActionValue={-500}
-                    onLeftAction={onLeftAction}
-                    onRightAction={onRightAction}
-                    onLeftActionStatusChange={onLeftActionStatusChange}
-                    onRightActionStatusChange={onRightActionStatusChange}/>
-            </View>
+            {
+                listData.map((data, index) => {
+                    return (
+                        <View style={[styles.item, {backgroundColor: colors.background2}]} key={data.key}>
+                            <TouchableOpacity onPress={() => { toggleNotification(index)}}>
+                                <View style={{flexDirection: 'row',  alignItems: 'center', justifyContent: 'space-between',}}>
+                                    <View style={[styles.itemLeft, {flexDirection: 'row'}]}>
+                                        <View style={[styles.square]}>
+                                            <MaterialCommunityIcons name="bell-ring-outline" size={26} color={colors.text}/>
+                                        </View>
+                                        <Text style={[styles.itemText, {width: screenWidth - 136, color: '#1f65ff', fontWeight: 'bold'}]}>{data.title}</Text>
+                                        
+                                        {
+                                            index === 0 ? 
+                                            <View pointerEvents="none">
+                                       <Switch value={active0}/>
+                                   </View>:
+                                   index === 1 ? 
+                                            <View pointerEvents="none">
+                                       <Switch value={active1}/>
+                                   </View>:
+                                  
+                                            <View pointerEvents="none">
+                                       <Switch value={active2}/>
+                                   </View>
+
+
+                                        }
+                                        
+
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                    );
+                 })
+
+            }
+           </View>
         </View>
     );
 };

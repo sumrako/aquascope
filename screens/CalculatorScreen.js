@@ -30,6 +30,22 @@ export const CalculatorScreen = ({navigation}) => {
                                           <Text  style={[{color: '#72D695', fontWeight: 'bold'}]}>Уровень СО2</Text>
                                         </TouchableOpacity>
 
+
+
+                                        <TouchableOpacity onPress={() => {navigation.navigate("AquariumWater")}} 
+                                                          style={[styles.item, {backgroundColor: colors.background2}]}>
+                                           
+                                          <Text  style={[{color: '#72D695', fontWeight: 'bold'}]}>Подмена воды</Text>
+                                        </TouchableOpacity>
+
+
+                                        <TouchableOpacity onPress={() => {navigation.navigate("WaterBalance")}} 
+                                                          style={[styles.item, {backgroundColor: colors.background2}]}>
+                                           
+                                          <Text  style={[{color: '#72D695', fontWeight: 'bold'}]}>Водный баланс</Text>
+                                        </TouchableOpacity>
+
+
             </ScrollView>
         </View>
     );

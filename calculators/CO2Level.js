@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {Keyboard, View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView} from 'react-native';
+import {Keyboard, View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, Dimensions} from 'react-native';
 import { useTheme } from "@react-navigation/native";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export const CO2Level = ({navigation}) => {
     const {colors} = useTheme();
     const theme = useTheme();
-
+    const screenWidth = Dimensions.get('screen').width;
+    const screenHeight = Dimensions.get('screen').height;
 
     const [PHValue, setPHValue] = useState(null)
     const [KHLevel, setKHLevel] = useState(null)
@@ -24,8 +25,9 @@ export const CO2Level = ({navigation}) => {
 
 
          <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps='handled' >
-            
 
+         <Image style={{ width: screenWidth - 40, height: screenWidth - 185}}
+                source={theme.dark ? require('./AquariumCO2.jpg') : require('./AquariumCO2.jpg')}/>
 
 <View>
 
@@ -55,7 +57,7 @@ export const CO2Level = ({navigation}) => {
 
 <View style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text, marginTop: 15, padding: 15}]}>
 <Text style={{color: '#72D695', fontWeight: 'bold', marginBottom: 10}}>Результат:</Text>
-    <Text style={{color: colors.text}}>{(KHLevel / 2.8 * 10**(7.9 - PHValue)).toFixed(3)} ppm</Text>
+    <Text style={{color: colors.text}}>{(KHLevel * 3.2 * 10**(7 - PHValue)).toFixed(3)} ppm</Text>
 
 </View>
 
