@@ -131,7 +131,7 @@ const App = ({navigation}) => {
         },
         toggleTheme: () => {
             //setIsDarkTheme(isDarkTheme => !isDarkTheme)
-            setIsDarkTheme(Appearance.getColorScheme() !== "dark")
+            setIsDarkTheme(Appearance.getColorScheme() === "dark")
         }
     }), []);
 

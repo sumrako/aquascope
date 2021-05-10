@@ -282,44 +282,41 @@ export const FishScreen = ({navigation}) => {
                         </TouchableOpacity>
                     </View>
                 }
-                <View style={styles.inputWrapper}>
-                    <TextInput style={[styles.textInput, {backgroundColor: colors.background2, color: colors.text}]}
-                    placeholder="Введите количество" onChangeText={text => setQuantity(text)} value={quantity} placeholderTextColor={'#666'}/>
-                    </View>
-                        <View style={{alignItems: 'center'}}>
-                            <View style={{marginTop: 10, flexDirection: 'row'}}>
-                                <TouchableOpacity onPress={() => {setIcon("FishClown"); Keyboard.dismiss()}} 
-                                    style={[styles.textInput, {backgroundColor: icon === "FishClown" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0, margin: 5}]}>
-                                    <FishClown/>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => {setIcon("FishOrange"); Keyboard.dismiss()}} 
-                                    style={[styles.textInput, {backgroundColor: icon === "FishOrange" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0, margin: 5}]}>
-                                    <FishOrange/>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => {setIcon("FishBlue");Keyboard.dismiss()}} 
-                                    style={[styles.textInput, {backgroundColor: icon === "FishBlue" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0,  margin: 5}]}>
-                                    <FishBlue/>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => {setIcon("FishOrange2"); Keyboard.dismiss()}} 
-                                    style={[styles.textInput, {backgroundColor: icon === "FishOrange2" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0,  margin: 5}]}>
-                                    <FishOrange2/>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{marginTop: 10, flexDirection: 'row'}}>
-                                <TouchableOpacity onPress={() => {setIcon("ClownLoach"); Keyboard.dismiss()}} 
-                                    style={[styles.textInput, {backgroundColor: icon === "ClownLoach" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0,  margin: 5}]}>
-                                    <ClownLoach/>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => {setIcon("NanoFish");Keyboard.dismiss()}} 
-                                    style={[styles.textInput, {backgroundColor: icon === "NanoFish" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0,  margin: 5}]}>
-                                    <NanoFish/>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => {setIcon("SwordBill"); Keyboard.dismiss()}} 
-                                    style={[styles.textInput, {backgroundColor: icon === "SwordBill" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0,  margin: 5}]}>
-                                    <SwordBill/>
-                                </TouchableOpacity>
-                            </View>
+        
+                    <View style={{alignItems: 'center'}}>
+                        <View style={{marginTop: 10, flexDirection: 'row'}}>
+                            <TouchableOpacity onPress={() => {setIcon("FishClown"); Keyboard.dismiss()}} 
+                                style={[styles.textInput, {backgroundColor: icon === "FishClown" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0, margin: 5}]}>
+                                <FishClown/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {setIcon("FishOrange"); Keyboard.dismiss()}} 
+                                style={[styles.textInput, {backgroundColor: icon === "FishOrange" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0, margin: 5}]}>
+                                <FishOrange/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {setIcon("FishBlue");Keyboard.dismiss()}} 
+                                style={[styles.textInput, {backgroundColor: icon === "FishBlue" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0,  margin: 5}]}>
+                                <FishBlue/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {setIcon("FishOrange2"); Keyboard.dismiss()}} 
+                                style={[styles.textInput, {backgroundColor: icon === "FishOrange2" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0,  margin: 5}]}>
+                                <FishOrange2/>
+                            </TouchableOpacity>
                         </View>
+                        <View style={{marginTop: 10, flexDirection: 'row'}}>
+                            <TouchableOpacity onPress={() => {setIcon("ClownLoach"); Keyboard.dismiss()}} 
+                                style={[styles.textInput, {backgroundColor: icon === "ClownLoach" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0,  margin: 5}]}>
+                                <ClownLoach/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {setIcon("NanoFish");Keyboard.dismiss()}} 
+                                style={[styles.textInput, {backgroundColor: icon === "NanoFish" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0,  margin: 5}]}>
+                                <NanoFish/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {setIcon("SwordBill"); Keyboard.dismiss()}} 
+                                style={[styles.textInput, {backgroundColor: icon === "SwordBill" ? '#25B0F3': colors.background2, color: colors.text, width: 60, height: 60, padding: 10, paddingTop: -10, paddingLeft: 0,  margin: 5}]}>
+                                <SwordBill/>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                     </Animatable.View> : null
                 }
         </View>
